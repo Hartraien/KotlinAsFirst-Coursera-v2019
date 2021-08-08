@@ -90,6 +90,16 @@ class Tests {
 
     @Test
     @Tag("Easy")
+    fun gcd()
+    {
+        assertEquals(13, gcd(13, 13))
+        assertEquals(2, gcd(2, 8))
+        assertEquals(2, gcd(6, 8))
+        assertEquals(3, gcd(39, 75))
+    }
+
+    @Test
+    @Tag("Easy")
     fun lcm() {
         assertEquals(13, lcm(13, 13))
         assertEquals(8, lcm(2, 8))
