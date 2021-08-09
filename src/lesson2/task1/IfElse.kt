@@ -6,7 +6,6 @@ import lesson1.task1.discriminant
 import java.lang.Integer.min
 import kotlin.math.abs
 import kotlin.math.max
-import kotlin.math.sign
 import kotlin.math.sqrt
 
 /**
@@ -67,13 +66,13 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    if (age % 100 in 11..19)
-        return "$age лет"
+    return if (age % 100 in 11..19)
+        "$age лет"
     else if (age % 10 in 2..4)
-        return "$age года"
+        "$age года"
     else if (age % 10 == 1)
-        return "$age год"
-    else return "$age лет"
+        "$age год"
+    else "$age лет"
 }
 
 /**
@@ -88,28 +87,28 @@ fun timeForHalfWay(
     t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
-    var S = (t1 * v1 + t2 * v2 + t3 * v3) / 2
+    var s = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     var time = 0.0
-    if (S < v1 * t1) {
-        time += S / v1
+    if (s < v1 * t1) {
+        time += s / v1
         return time
     }
     time += t1
-    S -= v1 * t1
+    s -= v1 * t1
 
-    if (S < v2 * t2) {
-        time += S / v2
+    if (s < v2 * t2) {
+        time += s / v2
         return time
     }
     time += t2
-    S -= v2 * t2
+    s -= v2 * t2
 
-    if (S < v3 * t3) {
-        time += S / v3
+    if (s < v3 * t3) {
+        time += s / v3
         return time
     }
     time += t3
-    S -= v3 * t3
+    s -= v3 * t3
 
     return time
 }
@@ -168,19 +167,18 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    val diff: Double
-    if (c >= a && c >= b) {
+    val diff: Double = if (c >= a && c >= b) {
         if (c > a + b)
             return -1
-        diff = c * c - a * a - b * b
+        c * c - a * a - b * b
     } else if (b >= a && b >= c) {
         if (b > a + c)
             return -1
-        diff = b * b - a * a - c * c
+        b * b - a * a - c * c
     } else {
         if (a > c + b)
             return -1
-        diff = a * a - c * c - b * b
+        a * a - c * c - b * b
     }
     return when {
         diff < 0 -> 0
@@ -199,8 +197,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int
-{
-    val dist = min(d,b) - max(c,a)
-    return if (dist >=0)  dist else -1
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    val dist = min(d, b) - max(c, a)
+    return if (dist >= 0) dist else -1
 }

@@ -2,7 +2,8 @@
 
 package lesson1.task1
 
-import kotlin.math.*
+import kotlin.math.PI
+import kotlin.math.sqrt
 
 /**
  * Пример
@@ -51,7 +52,7 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
 fun main() {
 //    val x1x2 = quadraticRootProduct(1.0, 13.0, 42.0)
 //    println("Root product: $x1x2")
-    val num: Int = 8
+    val num = 8
     val result: Int = sqr(num)
     println("$num x $num = $result")
 }
@@ -133,8 +134,7 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
  * Пользователь задает целое трехзначное число (например, 478).
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
-fun numberRevert(number: Int): Int
-{
+fun numberRevert(number: Int): Int {
     var num = number
     var result = 0
     while (num != 0) {

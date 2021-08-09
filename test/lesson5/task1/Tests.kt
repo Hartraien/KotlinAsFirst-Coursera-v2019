@@ -130,12 +130,15 @@ class Tests {
     fun subtractOf() {
         val from = mutableMapOf("a" to "z", "b" to "c")
 
+        print ("First")
         subtractOf(from, mapOf())
         assertEquals(from, mapOf("a" to "z", "b" to "c"))
 
+        print ("Second")
         subtractOf(from, mapOf("b" to "z"))
         assertEquals(from, mapOf("a" to "z", "b" to "c"))
 
+        print ("Third")
         subtractOf(from, mapOf("a" to "z"))
         assertEquals(from, mapOf("b" to "c"))
     }
