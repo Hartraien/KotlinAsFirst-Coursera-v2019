@@ -393,8 +393,87 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  *
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
+fun modifyString(str: String): String {
+    val indices = mutableListOf<Pair<Int, String>>()
+    var index = 0
+    var bold = 0
+    var italic = 0
+    var struck = 0
+    while (index < str.length) {
+        when (str[index]) {
+            '*' -> {
+                if ((index < str.length + 1) && (str[index + 1] == '*')) {
+                    if (bold == 0) {
+                        indices.add(Pair(index, "<b>"))
+                        bold++
+                    } else {
+                        indices.add(Pair(index, "</b>"))
+                        bold--
+                    }
+                    index++
+                } else {
+                    if (italic == 0) {
+                        indices.add(Pair(index, "<i>"))
+                        italic++
+                    } else {
+                        indices.add(Pair(index, "</i>"))
+                        italic--
+                    }
+                }
+            }
+            '~' -> {
+                if ((index < str.length + 1) && (str[index + 1] == '~')) {
+                    if (struck == 0) {
+                        indices.add(Pair(index, "<s>"))
+                        struck++
+                    } else {
+                        indices.add(Pair(index, "</s>"))
+                        struck--
+                    }
+                    index++
+                }
+            }
+        }
+        index++
+    }
+    var result = str
+    for ((ind, repl) in indices.reversed()) {
+        if (repl.contains("s") || repl.contains("b")) {
+            result = result.replaceRange(ind, ind + 2, repl)
+        } else {
+            result = result.replaceRange(ind, ind + 1, repl)
+        }
+    }
+    return result
+}
+
+
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    TODO()
+    val result = mutableListOf<String>("<html>", "<body>")
+    var paragraph = 1
+    for (line in File(inputName).readLines()) {
+        if (line.isEmpty()) {
+            if (paragraph == 0) {
+                result.add("</p>")
+                paragraph = 1
+            }
+        } else {
+            if (paragraph == 1) {
+                result.add("<p>")
+                paragraph = 0
+            }
+            //Modify string and add it to result
+            result.add(modifyString(line))
+        }
+
+    }
+    if (paragraph == 0)
+        result.add("</p>")
+    result.add("</body>")
+    result.add("</html>")
+    val outputStream = File(outputName).bufferedWriter()
+    outputStream.write(result.joinToString("\n"))
+    outputStream.close()
 }
 
 /**
@@ -497,7 +576,21 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlLists(inputName: String, outputName: String) {
-    TODO()
+    val result = mutableListOf<String>("<html>", "<body>")
+    var depth = 0
+    var type = 0
+    for (line in File(inputName).readLines()) {
+        if(line.isNotEmpty())
+        {
+            // TODO
+        }
+    }
+
+    result.add("</body>")
+    result.add("</html>")
+    val outputStream = File(outputName).bufferedWriter()
+    outputStream.write(result.joinToString("\n"))
+    outputStream.close()
 }
 
 /**
